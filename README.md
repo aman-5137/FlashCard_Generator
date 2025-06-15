@@ -56,3 +56,6 @@ You must enable Gemini API access and get your key from Google AI Studio
 Aman Kumar Yadav
 
 Thanks for visting and feel free to raise issues :)
+
+## Screenshots
+![alt text](<Screenshot 2025-06-15 122640.png>) ![alt text](<Screenshot 2025-06-15 122628.png>) ![alt text](<Screenshot 2025-06-15 122604.png>) ![alt text](<Screenshot 2025-06-15 122551.png>)
