@@ -3,7 +3,6 @@
 This project allows you to upload a PDF file (such as a textbook or study material), automatically extract its content, generate flashcards using Google's Gemini API, and present them in an interactive web interface.
 
 ---
-
 ##  Features
 
 -  Upload a PDF file
