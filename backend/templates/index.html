@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title> Flashcards Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .flashcard {
+      width: 300px;
+      height: 180px;
+      margin: 20px auto;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      background-color: white;
+      padding: 15px;
+      font-size: 18px;
+    }
+
+    .flashcard-back {
+      background-color: #d1e7dd;
+      transform: rotateY(180deg);
+    }
+
+    .nav-buttons {
+      margin-top: 40px;
+    }
+
+    .nav-buttons button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .card-count {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .upload-section {
+      margin-bottom: 30px;
+    }
+
+    .upload-section input[type="file"] {
+      padding: 10px;
+    }
+
+    .upload-section button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+
+    .upload-section button:hover {
+      background-color: #218838;
+    }
+
+    /* Spinner Styles */
+    #loadingSpinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #007bff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1> Flashcards Generator</h1>
+
+  <div class="upload-section">
+    <input type="file" id="pdfInput" accept=".pdf" />
+    <button onclick="uploadPDF()">Upload PDF</button>
+  </div>
+
+  <div class="flashcard" id="flashcard">
+    <div class="flashcard-inner" id="flashcardInner">
+      <div class="flashcard-front" id="cardFront"></div>
+      <div class="flashcard-back" id="cardBack"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="prevCard()">Previous</button>
+    <button onclick="nextCard()">Next</button>
+  </div>
+
+  <div class="card-count" id="cardCount"></div>
+
+  <div id="loadingSpinner">
+    <div class="spinner"></div>
+    <p>Processing PDF...</p>
+  </div>
+
+  <script>
+    let flashcards = [];
+    let currentIndex = 0;
+    const flashcard = document.getElementById("flashcard");
+    const cardFront = document.getElementById("cardFront");
+    const cardBack = document.getElementById("cardBack");
+    const cardInner = document.getElementById("flashcardInner");
+    const cardCount = document.getElementById("cardCount");
+
+    fetch('/api/flashcards')
+      .then(res => res.json())
+      .then(data => {
+        flashcards = data;
+        showCard(currentIndex);
+      });
+
+    function showCard(index) {
+      const [question, answer] = flashcards[index];
+      cardFront.textContent = question;
+      cardBack.textContent = answer;
+      flashcard.classList.remove("flipped");
+      cardCount.textContent = `Card ${index + 1} of ${flashcards.length}`;
+    }
+
+    function nextCard() {
+      if (currentIndex < flashcards.length - 1) {
+        currentIndex++;
+        showCard(currentIndex);
+      }
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showCard(currentIndex);
+      }
+    }
+
+    flashcard.addEventListener("click", () => {
+      flashcard.classList.toggle("flipped");
+    });
+
+    function uploadPDF() {
+      const fileInput = document.getElementById("pdfInput");
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please select a PDF file.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      document.getElementById("loadingSpinner").style.display = "flex";
+
+      fetch("/upload_pdf", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          flashcards = data;
+          currentIndex = 0;
+          showCard(currentIndex);
+          alert("PDF processed successfully!");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Failed to upload PDF.");
+        })
+        .finally(() => {
+          document.getElementById("loadingSpinner").style.display = "none";
+        });
+    }
+  </script>
+</body>
+</html>
