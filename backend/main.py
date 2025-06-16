@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from convert_into_2dArr import extract_2d_array_from_string
-from llm_implementation import llm
+from llm_implementation import llm, text_response
 import os
 import config  
 
@@ -17,6 +17,23 @@ def index():
 @app.route('/api/flashcards')
 def get_flashcards():
     return jsonify(quiz_data)
+
+
+@app.route('/upload_text', methods=['POST'])
+def upload_text():
+    global quiz_data
+    data = request.get_json()
+
+    if not data or 'text' not in data:
+        return jsonify({'error': 'No text provided'}), 400
+    raw_text = data['text']
+    config.rawTextData = raw_text  
+
+    llm()
+    quiz_data = extract_2d_array_from_string()
+    return jsonify(quiz_data)
+    
+
 
 @app.route('/upload_pdf', methods=['POST'])
 def upload_pdf():

@@ -1,32 +1,14 @@
-```json
+```python
 [
-  ["What is a computer?", "An electronic machine that carries out instructions to perform various tasks."],
-  ["Name 4 hardware components.", "CPU, RAM, Hard Disk/SSD, Motherboard"],
-  ["Name 2 software types.", "System Software, Application Software"],
-  ["What is the difference between RAM and Hard Disk?", "RAM is temporary memory, Hard Disk/SSD stores data permanently."],
-  ["What type of device is a monitor?", "Output device"],
-  ["What type of device is a keyboard?", "Input device"],
-  ["What is the function of the CPU?", "Processing unit (brain of the computer)"],
-  ["What type of software is MS Word?", "Application software"],
-  ["What is software?", "A set of instructions that tells the computer what to do."],
-  ["What are the two main categories of software?", "System Software and Application Software"],
-  ["Give an example of System Software.", "Windows, macOS, Linux, Android"],
-  ["Give an example of Application Software.", "MS Word, Excel, Google Chrome, VLC"],
-  ["What is the role of an Operating System (OS)?", "Manages hardware resources, controls input/output, manages files, provides a UI, manages memory and CPU time."],
-  ["What is a GUI?", "Graphical User Interface"],
-  ["What is a CLI?", "Command Line Interface"],
-  ["Give an example of a GUI Operating System.", "Windows 10, Ubuntu Desktop"],
-  ["Give an example of a CLI.", "Linux Terminal, Windows CMD"],
-  ["What is programming?", "The process of writing instructions for a computer to perform specific tasks."],
-  ["Name a programming language.", "Python, C/C++, Java, JavaScript"],
-  ["What is a programming language?", "A set of rules used to write software instructions."],
-  ["What is a data structure?", "A way to store and organize data so it can be used efficiently."],
-  ["Why are data structures important?", "Efficiency, Organization, Real-World Use"],
-  ["What is an algorithm?", "A step-by-step method to solve a problem."],
-  ["Why are algorithms important?", "Help us solve problems logically, Make programs efficient and fast, Enable us to compare different solutions"],
-  ["What is Time Complexity?", "How much time the algorithm takes relative to input size."],
-  ["What is Space Complexity?", "How much memory the algorithm uses during execution."],
-  ["What are characteristics of a Computer", "Speed, Accuracy, Automation, Storage, Versatility, Diligence"],
-  ["What are the 4 Functional Units of a Computer", "Input Unit, Storage Unit, Central Processing Unit (CPU), Output Unit"]
+    ["What years did the Napoleonic Wars, impacting American shipping, rage between?", "1803 and 1815"],
+    ["Which two European countries declared open season on American ships during the Napoleonic Wars?", "France and England"],
+    ["Which country was the major offender in seizing American ships and impressing sailors?", "England"],
+    ["What practice did the Royal Navy use to force American sailors into their service?", "Impressment"],
+    ["What event in 1807 involved the HMS Leopard and the U.S. naval ship Chesapeake?", "The HMS Leopard fired on the Chesapeake, and the British boarded and took four sailors."],
+    ["What was Jefferson's response to the crisis of seized American ships and impressed sailors?", "The Embargo Act of 1807"],
+    ["What did the Embargo Act of 1807 prohibit?", "American ships from leaving their ports until Britain and France stopped seizing them on the high seas."],
+    ["What was the intended logic behind the Embargo Act?", "Cutting off trade would hurt Britain and France so severely that the seizures at sea would end."],
+    ["Which economy felt the brunt of the impact of the Embargo Act?", "American commerce"],
+    ["What was the percentage decline in American business activity from 1808 to 1809 as a result of the embargo?", "75 percent"]
 ]
 ```
